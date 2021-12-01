@@ -1,5 +1,8 @@
 require("dotenv").config();
 import request from "request";
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs");
 };
@@ -74,7 +77,23 @@ function handleMessage(sender_psid, received_message) {
 }
 
 // Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {}
+function handlePostback(sender_psid, received_postback) {
+    let response;
+  
+    // Get the payload for the postback
+    let payload = received_postback.payload;
+  
+    // Set the response based on the postback payload
+    if (payload === 'yes') {
+      response = { "text": "Wow that beauty!" }
+    } else if (payload === 'no') {
+      response = { "text": "resend your picture" }
+    } else if(payload === "GET_STARTED") {
+      response = {"text": "Hello guys.Welcome to the restaurant FFF" }
+    }
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+}
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
@@ -103,8 +122,35 @@ function callSendAPI(sender_psid, response) {
         }
     );
 }
+let setupProfile = async (req, res) => {
+    // call profile fb api
+    // Construct the message body
+    let request_body = {
+      "get_started": {  "payload": "GET_STARTED" },
+      "whitelisted_domains": ["https://demo--chatbot.herokuapp.com/"]
+  }
+  
+  // Send the HTTP request to the Messenger Platform
+  await request({
+      "uri": `https://graph.facebook.com/v12.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+      "qs": { "access_token": PAGE_ACCESS_TOKEN },
+      "method": "POST",
+      "json": request_body
+  }, (err, res, body) => {
+    console.log(body)
+      if (!err) {
+          console.log('setup user profile succes')
+      } else {
+          console.error("Unable to setup user profile:" + err);
+      }
+  });
+  
+  return res.send("setup user profile succes");
+  
+}
 module.exports = {
     getHomePage,
     postWebHook,
     getWebHook,
+    setupProfile:setupProfile,
 };
