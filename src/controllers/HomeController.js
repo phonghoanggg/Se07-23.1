@@ -68,9 +68,37 @@ function handleMessage(sender_psid, received_message) {
     if (received_message.text) {
         // Create the payload for a basic text message
         response = {
-            text: `You sent the message: "${received_message.text}". Now send me an image!`,
-        };
-    }
+            "text": `You sent the message: "${received_message.text}". Now send me an image!`
+        }
+    } else if (received_message.attachments) {
+        // Get the URL of the message attachment
+        let attachment_url = received_message.attachments[0].payload.url;
+        response = {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [{
+                "title": "Có phải mày vừa gửi bức ảnh này không baee?",
+                "subtitle": "Nhấn để chọn đi nào baee.",
+                "image_url": attachment_url,
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Có ạ",
+                    "payload": "yes",
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Không ạ",
+                    "payload": "no",
+                  }
+                ],
+              }]
+            }
+          }
+        }
+      } 
 
     // Sends the response message
     callSendAPI(sender_psid, response);
@@ -99,35 +127,32 @@ function handlePostback(sender_psid, received_postback) {
 function callSendAPI(sender_psid, response) {
     // Construct the message body
     let request_body = {
-        recipient: {
-            id: sender_psid,
+        "recipient": {
+            "id": sender_psid
         },
-        message: response,
-    };
+        "message": response
+    }
 
     // Send the HTTP request to the Messenger Platform
-    request(
-        {
-            uri: "https://graph.facebook.com/v2.6/me/messages",
-            qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-            method: "POST",
-            json: request_body,
-        },
-        (err, res, body) => {
-            if (!err) {
-                console.log("message sent!");
-            } else {
-                console.error("Unable to send message:" + err);
-            }
+    request({
+        "uri": "https://graph.facebook.com/v2.6/me/messages",
+        "qs": { "access_token": PAGE_ACCESS_TOKEN },
+        "method": "POST",
+        "json": request_body
+    }, (err, res, body) => {
+        if (!err) {
+            console.log('message sent!')
+        } else {
+            console.error("Unable to send message:" + err);
         }
-    );
+    });
 }
 let setupProfile = async (req, res) => {
     // call profile fb api
     // Construct the message body
     let request_body = {
       "get_started": {  "payload": "GET_STARTED" },
-      "whitelisted_domains": ["https://demo--chatbot.herokuapp.com/"]
+      "whitelisted_domains": ["http://localhost:8080/"]
   }
   
   // Send the HTTP request to the Messenger Platform
