@@ -92,6 +92,12 @@ async function handleMessage(sender_psid, received_message) {
                         payload: "COLOR_GREEN",
                         image_url: "http://example.com/img/green.png",
                     },
+                    {
+                        content_type: "text",
+                        title: "PINK",
+                        payload: "COLOR_PINK",
+                        image_url: "http://example.com/img/green.png",
+                    },
                 ],
             };
         }
