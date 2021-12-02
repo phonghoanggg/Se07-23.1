@@ -61,19 +61,50 @@ let postWebHook = (req, res) => {
 };
 
 // Handles messages events
-function handleMessage(sender_psid, received_message) {
+async function handleMessage(sender_psid, received_message) {
     let response;
 
     // Check if the message contains text
     if (received_message.text) {
-        // Create the payload for a basic text message
-        response = {
-            text: `You sent the message: "${received_message.text}". Now send me an image!`,
-        };
+        // nếu có câu trả lời nhanh
+        if (received_message.quick_reply) {
+            if (received_message.quick_reply.payload == "COLOR_RED") {
+                response = {
+                    text: "ban chon mau do",
+                };
+            } else {
+                response = {
+                    text: "ban chon mau xanh",
+                };
+            }
+        } else {
+            // tin nhắn dạng text bình thường
+            response = {
+                text: `You sent the message: "${received_message.text}". Now send me an image!`,
+                quick_replies: [
+                    {
+                        content_type: "text",
+                        title: "Red",
+                        payload: "COLOR_RED",
+                        image_url:
+                            "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
+                    },
+                    {
+                        content_type: "text",
+                        title: "Green",
+                        payload: "COLOR_GREEN",
+                        image_url: "http://example.com/img/green.png",
+                    },
+                ],
+            };
+        }
     }
 
     // Sends the response message
-    callSendAPI(sender_psid, response);
+    callSendSenderAction(sender_psid, "mark_seen"); // đánh dấu là xem tin nhắn
+    //khong ho tro nua    // await callSendSenderAction(sender_psid, "typing_on"); // đang nhập tin nhắn
+    // await chatBotService.sendSlideMes(sender_psid);
+    await callSendAPI(sender_psid, response);
 }
 
 // Handles messaging_postbacks events
@@ -106,21 +137,55 @@ function callSendAPI(sender_psid, response) {
     };
 
     // Send the HTTP request to the Messenger Platform
-    request(
-        {
-            uri: "https://graph.facebook.com/v2.6/me/messages",
-            qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
-            method: "POST",
-            json: request_body,
-        },
-        (err, res, body) => {
-            if (!err) {
-                console.log("message sent!");
-            } else {
-                console.error("Unable to send message:" + err);
+    let res = new Promise((t, f) => {
+        request(
+            {
+                uri: "https://graph.facebook.com/v2.6/me/messages",
+                qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+                method: "POST",
+                json: request_body,
+            },
+            (err, res, body) => {
+                if (!err) {
+                    console.log("message sent!");
+                    t();
+                } else {
+                    console.error("Unable to send message:" + err);
+                }
             }
-        }
-    );
+        );
+    });
+    return res;
+}
+function callSendSenderAction(sender_psid, action) {
+    // Construct the message body
+    let request_body = {
+        recipient: {
+            id: sender_psid,
+        },
+        sender_action: action,
+    };
+
+    // Send the HTTP request to the Messenger Platform
+    let res = new Promise((t, f) => {
+        request(
+            {
+                uri: "https://graph.facebook.com/v2.6/me/messages",
+                qs: { access_token: process.env.PAGE_ACCESS_TOKEN },
+                method: "POST",
+                json: request_body,
+            },
+            (err, res, body) => {
+                if (!err) {
+                    console.log("message sent!");
+                    t();
+                } else {
+                    console.error("Unable to send message:" + err);
+                }
+            }
+        );
+    });
+    return res;
 }
 let setupProfile = async (req, res) => {
     // call profile fb api
