@@ -100,37 +100,37 @@ async function handleMessage(sender_psid, received_message) {
         }
         
     }
-    // if (received_message.quick_reply) {
-    //     if (received_message.quick_reply.payload == "COLOR_RED") {
-    //         response = {
-    //             text: "ban chon mau do",
-    //         };
-    //     } else {
-    //         response = {
-    //             text: "ban chon mau xanh",
-    //         };
-    //     }
-    // } else {
-    //     // tin nhắn dạng text bình thường
-    //     response = {
-    //         text: `You sent the message: "${received_message.text}". Now send me an image!`,
-    //         quick_replies: [
-    //             {
-    //                 content_type: "text",
-    //                 title: "Red",
-    //                 payload: "COLOR_RED",
-    //                 image_url:
-    //                     "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
-    //             },
-    //             {
-    //                 content_type: "text",
-    //                 title: "Green",
-    //                 payload: "COLOR_GREEN",
-    //                 image_url: "http://example.com/img/green.png",
-    //             },
-    //         ],
-    //     };
-    // }
+    if (received_message.quick_reply) {
+        if (received_message.quick_reply.payload == "COLOR_RED") {
+            response = {
+                text: "ban chon mau do",
+            };
+        } else {
+            response = {
+                text: "ban chon mau xanh",
+            };
+        }
+    } else {
+        // tin nhắn dạng text bình thường
+        response = {
+            text: `You sent the message: "${received_message.text}". Now send me an image!`,
+            quick_replies: [
+                {
+                    content_type: "text",
+                    title: "Red",
+                    payload: "COLOR_RED",
+                    image_url:
+                        "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
+                },
+                {
+                    content_type: "text",
+                    title: "Green",
+                    payload: "COLOR_GREEN",
+                    image_url: "http://example.com/img/green.png",
+                },
+            ],
+        };
+    }
 
     // Sends the response message
     callSendSenderAction(sender_psid, "mark_seen"); // đánh dấu là xem tin nhắn
