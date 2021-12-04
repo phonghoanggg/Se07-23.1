@@ -1,5 +1,8 @@
 require("dotenv").config();
 import request from "request";
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs");
 };
@@ -64,43 +67,69 @@ async function handleMessage(sender_psid, received_message) {
     // Check if the message contains text
     if (received_message.text) {
         // nếu có câu trả lời nhanh
-        if (received_message.quick_reply) {
-            if (received_message.quick_reply.payload == "COLOR_RED") {
-                response = {
-                    text: "ban chon mau do",
-                };
-            } else {
-                response = {
-                    text: "ban chon mau xanh",
-                };
-            }
-        } else {
-            // tin nhắn dạng text bình thường
-            response = {
-                text: `You sent the message: "${received_message.text}". Now send me an image!`,
-                quick_replies: [
-                    {
-                        content_type: "text",
-                        title: "Red",
-                        payload: "COLOR_RED",
-                        image_url:
-                            "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
-                    },
-                    {
-                        content_type: "text",
-                        title: "Green",
-                        payload: "COLOR_GREEN",
-                        image_url: "http://example.com/img/green.png",
-                    },
-                    {
-                        content_type: "text",
-                        title: "PINK",
-                        payload: "COLOR_OINK",
-                        image_url: "http://example.com/img/green.png",
-                    },
+        response = {
+            "text": `You sent the message: "${received_message.text}". Now send me an image!`
+        }
+    } else if (received_message.attachments) {
+        // Get the URL of the message attachment
+        let attachment_url = received_message.attachments[0].payload.url;
+        response = {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [{
+                "title": "Có phải mày vừa gửi bức ảnh này không baee?",
+                "subtitle": "Nhấn để chọn đi nào baee.",
+                "image_url": attachment_url,
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Có ạ",
+                    "payload": "yes",
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Không ạ",
+                    "payload": "no",
+                  }
                 ],
+              }]
+            }
+          }
+        }
+        
+    }
+    if (received_message.quick_reply) {
+        if (received_message.quick_reply.payload == "COLOR_RED") {
+            response = {
+                text: "ban chon mau do",
+            };
+        } else {
+            response = {
+                text: "ban chon mau xanh",
             };
         }
+    } else {
+        // tin nhắn dạng text bình thường
+        response = {
+            text: `You sent the message: "${received_message.text}". Now send me an image!`,
+            quick_replies: [
+                {
+                    content_type: "text",
+                    title: "Red",
+                    payload: "COLOR_RED",
+                    image_url:
+                        "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
+                },
+                {
+                    content_type: "text",
+                    title: "Green",
+                    payload: "COLOR_GREEN",
+                    image_url: "http://example.com/img/green.png",
+                },
+            ],
+        };
     }
 
     // Sends the response message
@@ -111,17 +140,33 @@ async function handleMessage(sender_psid, received_message) {
 }
 
 // Handles messaging_postbacks events
-function handlePostback(sender_psid, received_postback) {}
+function handlePostback(sender_psid, received_postback) {
+    let response;
+  
+    // Get the payload for the postback
+    let payload = received_postback.payload;
+  
+    // Set the response based on the postback payload
+    if (payload === 'yes') {
+      response = { "text": "Wow that beauty!" }
+    } else if (payload === 'no') {
+      response = { "text": "resend your picture" }
+    } else if(payload === "GET_STARTED") {
+      response = {"text": "Hello guys.Welcome to the restaurant FFF" }
+    }
+    // Send the message to acknowledge the postback
+    callSendAPI(sender_psid, response);
+}
 
 // Sends response messages via the Send API
 function callSendAPI(sender_psid, response) {
     // Construct the message body
     let request_body = {
-        recipient: {
-            id: sender_psid,
+        "recipient": {
+            "id": sender_psid
         },
-        message: response,
-    };
+        "message": response
+    }
 
     // Send the HTTP request to the Messenger Platform
     let res = new Promise((t, f) => {
@@ -174,8 +219,35 @@ function callSendSenderAction(sender_psid, action) {
     });
     return res;
 }
+let setupProfile = async (req, res) => {
+    // call profile fb api
+    // Construct the message body
+    let request_body = {
+      "get_started": {  "payload": "GET_STARTED" },
+      "whitelisted_domains": ["http://localhost:8080/"]
+  }
+  
+  // Send the HTTP request to the Messenger Platform
+  await request({
+      "uri": `https://graph.facebook.com/v12.0/me/messenger_profile?access_token=${PAGE_ACCESS_TOKEN}`,
+      "qs": { "access_token": PAGE_ACCESS_TOKEN },
+      "method": "POST",
+      "json": request_body
+  }, (err, res, body) => {
+    console.log(body)
+      if (!err) {
+          console.log('setup user profile succes')
+      } else {
+          console.error("Unable to setup user profile:" + err);
+      }
+  });
+  
+  return res.send("setup user profile succes");
+  
+}
 module.exports = {
     getHomePage,
     postWebHook,
     getWebHook,
+    setupProfile:setupProfile,
 };
