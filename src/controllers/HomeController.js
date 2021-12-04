@@ -162,11 +162,11 @@ function handlePostback(sender_psid, received_postback) {
 function callSendAPI(sender_psid, response) {
     // Construct the message body
     let request_body = {
-        recipient: {
-            id: sender_psid,
+        "recipient": {
+            "id": sender_psid
         },
-        message: response,
-    };
+        "message": response
+    }
 
     // Send the HTTP request to the Messenger Platform
     let res = new Promise((t, f) => {
@@ -224,7 +224,7 @@ let setupProfile = async (req, res) => {
     // Construct the message body
     let request_body = {
       "get_started": {  "payload": "GET_STARTED" },
-      "whitelisted_domains": ["https://demo--chatbot.herokuapp.com/"]
+      "whitelisted_domains": ["http://localhost:8080/"]
   }
   
   // Send the HTTP request to the Messenger Platform
