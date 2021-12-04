@@ -67,6 +67,38 @@ async function handleMessage(sender_psid, received_message) {
     // Check if the message contains text
     if (received_message.text) {
         // nếu có câu trả lời nhanh
+        response = {
+            "text": `You sent the message: "${received_message.text}". Now send me an image!`
+        }
+    } else if (received_message.attachments) {
+        // Get the URL of the message attachment
+        let attachment_url = received_message.attachments[0].payload.url;
+        response = {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [{
+                "title": "Có phải mày vừa gửi bức ảnh này không baee?",
+                "subtitle": "Nhấn để chọn đi nào baee.",
+                "image_url": attachment_url,
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "Có ạ",
+                    "payload": "yes",
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Không ạ",
+                    "payload": "no",
+                  }
+                ],
+              }]
+            }
+          }
+        }
+        
         if (received_message.quick_reply) {
             if (received_message.quick_reply.payload == "COLOR_RED") {
                 response = {
