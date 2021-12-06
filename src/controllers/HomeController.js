@@ -110,27 +110,28 @@ async function handleMessage(sender_psid, received_message) {
                 text: "ban chon mau xanh",
             };
         }
-    } else {
-        // tin nhắn dạng text bình thường
-        response = {
-            text: `You sent the message: "${received_message.text}". Now send me an image!`,
-            quick_replies: [
-                {
-                    content_type: "text",
-                    title: "Red",
-                    payload: "COLOR_RED",
-                    image_url:
-                        "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
-                },
-                {
-                    content_type: "text",
-                    title: "Green",
-                    payload: "COLOR_GREEN",
-                    image_url: "http://example.com/img/green.png",
-                },
-            ],
-        };
-    }
+    } 
+    // else {
+    //     // tin nhắn dạng text bình thường
+    //     response = {
+    //         text: `You sent the message: "${received_message.text}". Now send me an image!`,
+    //         quick_replies: [
+    //             {
+    //                 content_type: "text",
+    //                 title: "Red",
+    //                 payload: "COLOR_RED",
+    //                 image_url:
+    //                     "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
+    //             },
+    //             {
+    //                 content_type: "text",
+    //                 title: "Green",
+    //                 payload: "COLOR_GREEN",
+    //                 image_url: "http://example.com/img/green.png",
+    //             },
+    //         ],
+    //     };
+    // }
 
     // Sends the response message
     callSendSenderAction(sender_psid, "mark_seen"); // đánh dấu là xem tin nhắn
@@ -145,15 +146,21 @@ function handlePostback(sender_psid, received_postback) {
   
     // Get the payload for the postback
     let payload = received_postback.payload;
-  
-    // Set the response based on the postback payload
-    if (payload === 'yes') {
-      response = { "text": "Wow that beauty!" }
-    } else if (payload === 'no') {
-      response = { "text": "resend your picture" }
-    } else if(payload === "GET_STARTED") {
-      response = {"text": "Hello guys.Welcome to the restaurant FFF" }
+    
+    switch(payload) {
+        case 'yes':
+            response = { "text": "Wow that beauty!" }
+        break;
+        case 'no':
+            response = { "text": "resend your picture" }
+        break;
+        case 'GET_STARTED':
+            response = {"text": "Hello guys.Welcome to the restaurant FFF" }
+        break;
+        default:
+            response = {"text":`oop! I don't know`}
     }
+
     // Send the message to acknowledge the postback
     callSendAPI(sender_psid, response);
 }
