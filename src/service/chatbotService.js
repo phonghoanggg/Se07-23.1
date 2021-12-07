@@ -7,10 +7,31 @@ let sendSlideMes = async (sender_psid) => {
     await callSendAPI(sender_psid, mes);
     await callSendAPI(sender_psid, { text: `cai nay gui sau` });
 };
+let getNameUser =  (sender_psid) => {
+    return new Promise((resolve, reject) => {
+        request({
+                    uri: `https://graph.facebook.com/${sender_psid}?fields=first_name,last_name,profile_pic&access_token=${PAGE_ACCESS_TOKEN}`,
+                    method: "GET",
+                },(err, res, body) => {
+                    console.log(body)
+                    if (!err) {
+                        body = JSON.parse(body);
+                        //tên có dạng first_name:"...", "last_name":"..."
+                        let usename = `${body.last_name} ${body.first_name}`;
+                        resolve(usename);
+                    } else {
+                        console.error("Unable to send message:" + err);
+                        reject(err);
+                    }
+                });
+    })
+    
+}
 let handleGetStarted = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let response = {text: "Hey guys, wealcom go to the restaurant FFF"}
+            let username = await getNameUser(sender_psid);
+            let response = {"text": `Hey guys, wealcome ${username} to the restaurant FFF`}
             await callSendAPI(sender_psid, response);
             resolve('done');
         } catch(e) {
