@@ -260,4 +260,8 @@ module.exports = {
     postWebHook,
     getWebHook,
     setupProfile: setupProfile,
+<<<<<<< HEAD
 };
+=======
+};
+>>>>>>> 77ce8ee1cd9d66c6dbda277e9600588bb9b99e49
