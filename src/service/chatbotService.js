@@ -1,12 +1,23 @@
 import request from "request";
 require("dotenv").config();
-
+const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 //tao tin nhan va gui
 let sendSlideMes = async (sender_psid) => {
     let mes = showProduct();
     await callSendAPI(sender_psid, mes);
     await callSendAPI(sender_psid, { text: `cai nay gui sau` });
 };
+let handleGetStarted = (sender_psid) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let response = {text: "Hey guys, wealcom go to the restaurant FFF"}
+            await callSendAPI(sender_psid, response);
+            resolve('done');
+        } catch(e) {
+            reject(e);
+        }
+    })
+}
 let showProduct = () => {
     let res = {
         attachment: {
@@ -125,5 +136,6 @@ function callSendAPI(sender_psid, response) {
     return res;
 }
 module.exports = {
+    handleGetStarted:handleGetStarted,
     sendSlideMes,
 };
