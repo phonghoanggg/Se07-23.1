@@ -7,7 +7,9 @@ import chatbotService from "../service/chatbotService";
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
 const TOKEN_WIT = process.env.TOKEN_WIT
-const {Wit, log} = require('node-wit');
+const { Wit, log } = require('node-wit');
+
+const data = require("../data/product.json")
 
 const client = new Wit({
   accessToken: TOKEN_WIT,
@@ -51,7 +53,7 @@ let postWebHook = (req, res) => {
         body.entry.forEach(function (entry) {
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-            // console.log(webhook_event);
+            console.log(webhook_event);
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
@@ -167,11 +169,76 @@ async function handleData(mes) {
 function handleResponse(response) {
     console.log(response);
     let intents = response.intents
-    let confidence = intents[0].confidence
-    let name = intents[0].name
-    console.log(name + confidence);
-    return `${name} ${confidence}`
+    if (intents.length > 0) {
+        let confidence = intents[0].confidence
+        let name = intents[0].name
+        let entities = response.entities
+        if (confidence >= 0.8) {
+            switch (name) {
+                case 'chao_hoi':
+                    return 'Chào bạn nhé, tôi có thể giúp gì cho bạn'
+                    break;
+                case 'hoi':
+                    return handleAsk(entities)
+                case 'ban_nhieu':
+                    return 'hoi san pham ban nhieu'
+                        
+                default:
+                    break;
+            }
+        } else {
+            return 'Bạn có thể nói rõ hơn về sản phẩm mà bạn quan tâm không'    
+        }
+        
+    } else {
+        return 'Bạn có thể nói rõ hơn về sản phẩm mà bạn quan tâm không'
+    }
 }
+function handleAsk(entities) {
+    console.log(Object.values(entities));
+    let dataResponse = []
+    let dataQuery = {}
+    let entitiesArr = Object.values(entities)
+    entitiesArr.forEach(v => {
+        if (v[0].confidence >= 0.8) {
+            dataQuery[v[0].name] = v[0].value
+        }
+    })
+    if (dataQuery['gioi_tinh']) {
+        data.forEach(d => {
+            if (d.name.toLowerCase() == dataQuery['gioi_tinh'].toLowerCase()) {
+                dataResponse = d.categories
+            }
+        })
+    } else {
+        data.forEach(d => {
+            dataResponse = dataResponse.concat(d.categories)
+        })
+    }
+    if (dataQuery['ten_danh_muc']) {
+        let dataCate = []
+        dataResponse.forEach(cate => {
+            if (cate.name.toLowerCase() == dataQuery['ten_danh_muc'].toLowerCase()) {
+                dataCate = dataCate.concat(cate.categories)
+            }
+        })
+        dataResponse = dataCate
+    }
+    if (dataQuery['color']) {
+        let dataColor = []
+        dataResponse.forEach(d => {
+            if (d.color.includes(dataQuery['color'].toLowerCase())) {
+                dataColor.push(d)
+            }
+        })
+        dataResponse = dataColor
+        console.log(dataResponse);
+
+    }
+    console.log(dataQuery);
+    return 
+}
+
 // Handles messaging_postbacks events
 async function handlePostback(sender_psid, received_postback) {
     let response;
