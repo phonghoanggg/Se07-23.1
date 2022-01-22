@@ -1,10 +1,21 @@
 require("dotenv").config();
+import { text } from "body-parser";
 import request from "request";
 import chatbotService from "../service/chatbotService";
 
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
+const TOKEN_WIT = process.env.TOKEN_WIT
+const {Wit, log} = require('node-wit');
+
+const client = new Wit({
+  accessToken: TOKEN_WIT,
+  logger: new log.Logger(log.DEBUG) // optional
+});
+
+
+
 
 let getHomePage = (req, res) => {
     return res.render("homepage.ejs");
@@ -40,7 +51,7 @@ let postWebHook = (req, res) => {
         body.entry.forEach(function (entry) {
             // Gets the body of the webhook event
             let webhook_event = entry.messaging[0];
-            console.log(webhook_event);
+            // console.log(webhook_event);
 
             // Get the sender PSID
             let sender_psid = webhook_event.sender.id;
@@ -69,10 +80,12 @@ async function handleMessage(sender_psid, received_message) {
 
     // Check if the message contains text
     if (received_message.text) {
-        // nếu có câu trả lời nhanh
+        let mes = received_message.text
+        let data = await handleData(mes)
         response = {
-            "text": `You sent the message: "${received_message.text}". Now send me an image!`
+            'text': `${data}`
         }
+        
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
         let attachment_url = received_message.attachments[0].payload.url;
@@ -138,11 +151,27 @@ async function handleMessage(sender_psid, received_message) {
 
     // Sends the response message
     callSendSenderAction(sender_psid, "mark_seen"); // đánh dấu là xem tin nhắn
-    //khong ho tro nua    // await callSendSenderAction(sender_psid, "typing_on"); // đang nhập tin nhắn
     // await chatBotService.sendSlideMes(sender_psid);
     await callSendAPI(sender_psid, response);
 }
-
+async function handleData(mes) {
+    try {
+        const response = await client.message(mes)
+        if (response) {
+           return  handleResponse(response)
+        }
+    } catch (error) {
+        console.log(error);
+    }
+}
+function handleResponse(response) {
+    console.log(response);
+    let intents = response.intents
+    let confidence = intents[0].confidence
+    let name = intents[0].name
+    console.log(name + confidence);
+    return `${name} ${confidence}`
+}
 // Handles messaging_postbacks events
 async function handlePostback(sender_psid, received_postback) {
     let response;
@@ -260,8 +289,4 @@ module.exports = {
     postWebHook,
     getWebHook,
     setupProfile: setupProfile,
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 77ce8ee1cd9d66c6dbda277e9600588bb9b99e49

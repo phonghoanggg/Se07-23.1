@@ -159,4 +159,5 @@ function callSendAPI(sender_psid, response) {
 module.exports = {
     handleGetStarted:handleGetStarted,
     sendSlideMes,
+    getNameUser,
 };
