@@ -87,7 +87,7 @@ async function handleMessage(sender_psid, received_message) {
         response = {
             'text': `${data}`
         }
-        
+        chatbotService.sendSlideMes(sender_psid)
     } else if (received_message.attachments) {
         // Get the URL of the message attachment
         let attachment_url = received_message.attachments[0].payload.url;
@@ -179,6 +179,7 @@ function handleResponse(response) {
                     return 'Chào bạn nhé, tôi có thể giúp gì cho bạn'
                     break;
                 case 'hoi':
+                    
                     return handleAsk(entities)
                 case 'ban_nhieu':
                     return 'hoi san pham ban nhieu'
@@ -218,7 +219,7 @@ function handleAsk(entities) {
     if (dataQuery['ten_danh_muc']) {
         let dataCate = []
         dataResponse.forEach(cate => {
-            if (cate.name.toLowerCase() == dataQuery['ten_danh_muc'].toLowerCase()) {
+            if (cate.name.toLowerCase().includes(dataQuery['ten_danh_muc'].toLowerCase())) {
                 dataCate = dataCate.concat(cate.categories)
             }
         })
@@ -232,11 +233,12 @@ function handleAsk(entities) {
             }
         })
         dataResponse = dataColor
-        console.log(dataResponse);
+        
 
     }
+    console.log(dataResponse);
     console.log(dataQuery);
-    return 
+    return dataResponse[0].name
 }
 
 // Handles messaging_postbacks events

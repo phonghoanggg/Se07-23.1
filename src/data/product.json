@@ -1,52 +1,52 @@
 [
         {"name": "nữ", "categories": [
             {"name":"Áo thun", "categories": [
-                {"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nữ", "amount": 200000, "currency": "VND","color":["đỏ","xanh"]},
-                {"name": "Áo Thun Tay Ngắn Cổ Tròn", "amount": 180000, "currency": "VND","color":["hồng","xanh"]},
-                {"name": "Áo Thun Tay Lỡ", "amount": 210000, "currency": "VND","color":["trắng","đen"]},
-                {"name": "Áo Thun cao cổ", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"]}
+                {"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nữ", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"image":"https://bitly.com.vn/efale5"},
+                {"name": "Áo Thun Tay Ngắn Cổ Tròn", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Thun Tay Lỡ", "amount": 210000, "currency": "VND","color":["trắng","đen"],"image":"https://bitly.com.vn/efale5"},
+                {"name": "Áo Thun cao cổ", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"image":"https://bitly.com.vn/fhi98e"}
             ]},
             {"name":"Hoodie Áo nỉ", "categories": [
-                {"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"]},
-                {"name": "Áo Hoodie Nữ Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"]},
-                {"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"]}
+                {"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"],"image":"https://bitly.com.vn/efale5"},
+                {"name": "Áo Hoodie Nữ Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"],"image":"https://bitly.com.vn/efale5"},
+                {"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"],"image":"https://bitly.com.vn/efale5"}
             ]},
             {"name":"Áo sơ mi", "categories": [
-                {"name": "Áo Sơ Mi Nữ Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"]},
-                {"name": "Áo Sơ Mi Nam Nữ Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"]},
-                {"name": "Áo Sơ Mi Nam Nữ Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen"]},
-                {"name": "Áo Sơ Mi Nữ Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"]}
+                {"name": "Áo Sơ Mi Nữ Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"],"image":"https://bitly.com.vn/966wgz"},
+                {"name": "Áo Sơ Mi Nam Nữ Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"],"image":"https://bitly.com.vn/966wgz"},
+                {"name": "Áo Sơ Mi Nam Nữ Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen"],"image":"https://bitly.com.vn/966wgz"},
+                {"name": "Áo Sơ Mi Nữ Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"],"image":"https://bitly.com.vn/966wgz"}
             ]},
             {"name":"Quần dài", "categories": [
-                {"name": "Quần ống xuông nữ thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"]},
-                {"name": "Quần jean nữ thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"]},
-                {"name": "Quần basic xuông nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"]},
-                {"name": "Quần ống rộng nữ thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa"]}
+                {"name": "Quần ống xuông nữ thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"image":"https://bitly.com.vn/966wgz"},
+                {"name": "Quần jean nữ thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"image":"https://bitly.com.vn/966wgz"},
+                {"name": "Quần basic xuông nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"image":"https://bitly.com.vn/966wgz"},
+                {"name": "Quần ống rộng nữ thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa"],"image":"https://bitly.com.vn/966wgz"}
             ]}
         ]},
         {"name": "nam", "categories": [
             {"name":"Áo thun", "categories": [
-                {"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nam", "amount": 200000, "currency": "VND","color":["đỏ","xanh"]},
-                {"name": "Áo Thun Tay Ngắn Cổ Tròn Nam", "amount": 180000, "currency": "VND","color":["hồng","xanh"]},
-                {"name": "Áo Thun Tay Lỡ Cho Nam", "amount": 210000, "currency": "VND","color":["trắng","đen"]},
-                {"name": "Áo Thun cao cổ cho nam", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"]}
+                {"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nam", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Thun Tay Ngắn Cổ Tròn Nam", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Thun Tay Lỡ Cho Nam", "amount": 210000, "currency": "VND","color":["trắng","đen"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Thun cao cổ cho nam", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"image":"https://bitly.com.vn/fhi98e"}
             ]},
             {"name":"Hoodie Áo nỉ", "categories": [
-                {"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"]},
-                {"name": "Áo Hoodie Nam Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"]},
-                {"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"]}
+                {"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Hoodie Nam Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"],"image":"https://bitly.com.vn/fhi98e"}
             ]},
             {"name":"Áo sơ mi", "categories": [
-                {"name": "Áo Sơ Mi Nam Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"]},
-                {"name": "Áo Sơ Mi Nam Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"]},
-                {"name": "Áo Sơ Mi Nam Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen"]},
-                {"name": "Áo Sơ Mi Nam Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"]}
+                {"name": "Áo Sơ Mi Nam Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Sơ Mi Nam Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Sơ Mi Nam Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Áo Sơ Mi Nam Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"],"image":"https://bitly.com.vn/fhi98e"}
             ]},
             {"name":"Quần dài", "categories": [
-                {"name": "Quần ống xuông nam thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"]},
-                {"name": "Quần jean nam thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"]},
-                {"name": "Quần basic xuông nam thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"]},
-                {"name": "Quần ống rộng nam thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa"]}
+                {"name": "Quần ống xuông nam thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Quần jean nam thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Quần basic xuông nam thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"image":"https://bitly.com.vn/fhi98e"},
+                {"name": "Quần ống rộng nam thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa"],"image":"https://bitly.com.vn/fhi98e"}
             ]}
         ]}
 ]

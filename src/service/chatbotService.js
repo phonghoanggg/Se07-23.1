@@ -48,16 +48,10 @@ let showProduct = () => {
                 elements: [
                     {
                         title: "Welcome!",
-                        image_url:
-                            "https://petersfancybrownhats.com/company_image.png",
                         subtitle: "We have the right hat for everyone.",
                         // type: "web_url",
                         image_url:
-                            "https://petersfancybrownhats.com/view?item=103",
-                        // messenger_extensions: false,
-                        // webview_height_ratio: "tall",
-                        // fallback_url: "https://petersfancybrownhats.com/",
-
+                            "https://bitly.com.vn/efale5",
                         buttons: [
                             {
                                 type: "web_url",
@@ -100,9 +94,7 @@ let showProduct = () => {
                         // type: "web_url",
                         image_url:
                             "https://petersfancybrownhats.com/view?item=103",
-                        // messenger_extensions: false,
-                        // webview_height_ratio: "tall",
-                        // fallback_url: "https://petersfancybrownhats.com/",
+
 
                         buttons: [
                             {
