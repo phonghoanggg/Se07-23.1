@@ -2,10 +2,27 @@ import request from "request";
 require("dotenv").config();
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 //tao tin nhan va gui
-let sendSlideMes = async (sender_psid) => {
-    let mes = showProduct();
-    await callSendAPI(sender_psid, mes);
-    await callSendAPI(sender_psid, { text: `cai nay gui sau` });
+let sendSlideMes = async (sender_psid, dataList, isDetail = true) => {
+    let mesList = []
+    let res = {}
+    if (isDetail) {
+        mesList = showProduct(dataList);
+    } else {
+        mesList = showDetail(dataList)
+    }
+    mesList.forEach(async(mes) => {
+        res = {
+            attachment: {
+                type: "template",
+                payload: {
+                    template_type: "generic",
+                    elements: mes,
+                },
+            },
+        };
+        await callSendAPI(sender_psid, res);
+    })
+    // await callSendAPI(sender_psid, { text: `cai nay gui sau` });
 };
 let getNameUser =  (sender_psid) => {
     return new Promise((resolve, reject) => {
@@ -17,7 +34,8 @@ let getNameUser =  (sender_psid) => {
                     if (!err) {
                         body = JSON.parse(body);
                         //tên có dạng first_name:"...", "last_name":"..."
-                        let usename = `${body.last_name} ${body.first_name}`;
+                        // let usename = `${body.last_name} ${body.first_name}`;
+                        let usename = `${body.first_name}`;
                         resolve(usename);
                     } else {
                         console.error("Unable to send message:" + err);
@@ -39,81 +57,75 @@ let handleGetStarted = (sender_psid) => {
         }
     })
 }
-let showProduct = () => {
-    let res = {
-        attachment: {
-            type: "template",
-            payload: {
-                template_type: "generic",
-                elements: [
-                    {
-                        title: "Welcome!",
-                        subtitle: "We have the right hat for everyone.",
-                        // type: "web_url",
-                        image_url:
-                            "https://bitly.com.vn/efale5",
-                        buttons: [
-                            {
-                                type: "web_url",
-                                url: "https://petersfancybrownhats.com",
-                                title: "View Website",
-                            },
-                            {
-                                type: "postback",
-                                title: "Start Chatting",
-                                payload: "DEVELOPER_DEFINED_PAYLOAD",
-                            },
-                        ],
-                    },
-                    {
-                        title: "Welcome!",
-                        image_url:
-                            "https://petersfancybrownhats.com/company_image.png",
-                        subtitle: "We have the right hat for everyone.",
-                        image_url:
-                            "https://petersfancybrownhats.com/view?item=103",
-
-                        buttons: [
-                            {
-                                type: "web_url",
-                                url: "https://petersfancybrownhats.com",
-                                title: "View Website",
-                            },
-                            {
-                                type: "postback",
-                                title: "Start Chatting",
-                                payload: "DEVELOPER_DEFINED_PAYLOAD",
-                            },
-                        ],
-                    },
-                    {
-                        title: "Welcome!",
-                        image_url:
-                            "https://petersfancybrownhats.com/company_image.png",
-                        subtitle: "We have the right hat for everyone.",
-                        // type: "web_url",
-                        image_url:
-                            "https://petersfancybrownhats.com/view?item=103",
-
-
-                        buttons: [
-                            {
-                                type: "web_url",
-                                url: "https://petersfancybrownhats.com",
-                                title: "View Website",
-                            },
-                            {
-                                type: "postback",
-                                title: "Start Chatting",
-                                payload: "DEVELOPER_DEFINED_PAYLOAD",
-                            },
-                        ],
-                    },
-                ],
-            },
-        },
-    };
-    return res;
+let showDetail = (dataList) => {
+    let payload = ''
+    if (dataList.name.toLowerCase() == "nam") {
+        payload = "DANH_MUC_NAM"
+    } else {
+        payload = "DANH_MUC_NU" 
+    }
+    let mesList = []
+    let mesOnly = []
+    dataList.categories.forEach((e, index) => {
+        if (mesOnly.length > 7) {
+            mesList.push(mesOnly)
+            mesOnly = []
+        }
+        let temp = {
+            title: `Ở đây có`,
+            buttons: [
+                {
+                    type: "postback",
+                    title: `${e.name}`,
+                    payload: payload,
+                },
+            ],
+        }
+        mesOnly.push(temp)
+    });
+    if (mesOnly.length > 0) {
+        mesList.push(mesOnly)
+    }
+    
+    return mesList;
+}
+let showProduct = (dataList) => {
+    let mesOnly = []
+    let mesList = []
+    dataList.categories.forEach((e, index) => {
+        if (mesOnly.length >= 6) {
+            mesList.push(mesOnly)
+            mesOnly = []
+        }
+        let price = e.amount.toLocaleString('vi-VN', {
+            style: 'currency',
+            currency: `${e.currency}`
+        })
+        let temp = {
+            title: `${e.name}`,
+            subtitle: `Giá: ${price}`,
+            // type: "web_url",
+            image_url:
+                `${e.image}`,
+            buttons: [
+                {
+                    type: "web_url",
+                    url: "https://petersfancybrownhats.com",
+                    title: "Xem chi tiết",
+                },
+                {
+                    type: "postback",
+                    title: "Muốn mua",
+                    payload: "DEVELOPER_DEFINED_PAYLOAD",
+                },
+            ],
+        }
+        mesOnly.push(temp)
+    });
+    if (mesOnly.length > 0) {
+        mesList.push(mesOnly)
+    }
+    return mesList;
 };
 
 // Sends response messages via the Send API

@@ -1,5 +1,6 @@
 require("dotenv").config();
 import { text } from "body-parser";
+import { response } from "express";
 import request from "request";
 import chatbotService from "../service/chatbotService";
 
@@ -79,94 +80,62 @@ let postWebHook = (req, res) => {
 // Handles messages events
 async function handleMessage(sender_psid, received_message) {
     let response;
-
     // Check if the message contains text
-    if (received_message.text) {
-        let mes = received_message.text
-        let data = await handleData(mes)
-        response = {
-            'text': `${data}`
-        }
-        chatbotService.sendSlideMes(sender_psid)
-    } else if (received_message.attachments) {
-        // Get the URL of the message attachment
-        let attachment_url = received_message.attachments[0].payload.url;
-        response = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type": "generic",
-                    "elements": [{
-                        "title": "Có phải mày vừa gửi bức ảnh này không baee?",
-                        "subtitle": "Nhấn để chọn đi nào baee.",
-                        "image_url": attachment_url,
-                        "buttons": [
-                            {
-                                "type": "postback",
-                                "title": "Có ạ",
-                                "payload": "yes",
-                            },
-                            {
-                                "type": "postback",
-                                "title": "Không ạ",
-                                "payload": "no",
-                            }
-                        ],
-                    }]
-                }
-            }
-        }
-
-    }
     if (received_message.quick_reply) {
-        if (received_message.quick_reply.payload == "COLOR_RED") {
-            response = {
-                text: "ban chon mau do",
-            };
-        } else {
-            response = {
-                text: "ban chon mau xanh",
-            };
+        let listCategory = []
+        switch (received_message.quick_reply.payload) {
+            case "NAM":
+                listCategory = getCategory("nam")
+                chatbotService.sendSlideMes(sender_psid,listCategory,false)
+                break;
+            case "NU":
+                console.log(received_message.quick_reply);
+                listCategory = getCategory("nữ")
+                chatbotService.sendSlideMes(sender_psid,listCategory,false)
+                break;
+            default:
+                break;
         }
-    } 
-    // else {
-    //     // tin nhắn dạng text bình thường
-    //     response = {
-    //         text: `You sent the message: "${received_message.text}". Now send me an image!`,
-    //         quick_replies: [
-    //             {
-    //                 content_type: "text",
-    //                 title: "Red",
-    //                 payload: "COLOR_RED",
-    //                 image_url:
-    //                     "https://icons.iconarchive.com/icons/binassmax/pry-frente-black-special-2/256/pictures-4-icon.png",
-    //             },
-    //             {
-    //                 content_type: "text",
-    //                 title: "Green",
-    //                 payload: "COLOR_GREEN",
-    //                 image_url: "http://example.com/img/green.png",
-    //             },
-    //         ],
-    //     };
-    // }
-
+    } else {
+        if (received_message.text) {
+            let mes = received_message.text
+            let data = await handleData(mes, sender_psid)
+            return
+            response = {
+                'text': `${data}`
+            }
+        } else if (received_message.attachments) {
+            response = {
+                text:"Hãy gửi tin nhắn văn bản cho tôi."
+            }
+    
+        }
+    }
     // Sends the response message
     callSendSenderAction(sender_psid, "mark_seen"); // đánh dấu là xem tin nhắn
     // await chatBotService.sendSlideMes(sender_psid);
     await callSendAPI(sender_psid, response);
 }
-async function handleData(mes) {
+function getCategory(key) {
+    let listCategory = []
+    data.forEach(d => {
+        if (d.name.toLowerCase() == key.toLowerCase()) {
+            listCategory = d
+        }
+    })
+    return listCategory
+}
+async function handleData(mes,psid) {
     try {
         const response = await client.message(mes)
         if (response) {
-           return  handleResponse(response)
+           return  handleResponse(response,psid)
         }
     } catch (error) {
         console.log(error);
     }
 }
-function handleResponse(response) {
+async function handleResponse(response,psid) {
     console.log(response);
     let intents = response.intents
     if (intents.length > 0) {
@@ -176,28 +145,46 @@ function handleResponse(response) {
         if (confidence >= 0.8) {
             switch (name) {
                 case 'chao_hoi':
-                    return 'Chào bạn nhé, tôi có thể giúp gì cho bạn'
-                    break;
+                    let username = await chatbotService.getNameUser(psid)
+                    return `Chào ${username}, tôi có thể giúp gì cho bạn`
                 case 'hoi':
                     
-                    return handleAsk(entities)
+                    return handleAsk(entities,psid)
                 case 'ban_nhieu':
                     return 'hoi san pham ban nhieu'
                         
                 default:
+                    return 'Bạn có thể nói rõ hơn về sản phẩm mà bạn quan tâm không'        
                     break;
             }
         } else {
-            return 'Bạn có thể nói rõ hơn về sản phẩm mà bạn quan tâm không'    
+            return suggestMes(psid)
         }
         
     } else {
-        return 'Bạn có thể nói rõ hơn về sản phẩm mà bạn quan tâm không'
+        return suggestMes(psid)
     }
 }
-function handleAsk(entities) {
+async function suggestMes(psid) {
+    let mes = 'Bạn có thể nói rõ hơn về sản phẩm mà bạn quan tâm không'
+    let mesList = []
+    mesList.push(mes)
+    data.forEach(d => {
+        let m = `Với ${d.name} chúng tôi có: `
+        let cateName = ''
+        d.categories.forEach(cate => {
+            cateName +=  `${cate.name}, `
+        })
+        m = m + cateName
+        mesList.push(m)
+    })
+    for (let index = 0; index < mesList.length; index++) {
+        await callSendAPI(psid, { text: mesList[index]})
+    }
+}
+function handleAsk(entities,psid) {
     console.log(Object.values(entities));
-    let dataResponse = []
+    let dataResponse = {}
     let dataQuery = {}
     let entitiesArr = Object.values(entities)
     entitiesArr.forEach(v => {
@@ -208,22 +195,50 @@ function handleAsk(entities) {
     if (dataQuery['gioi_tinh']) {
         data.forEach(d => {
             if (d.name.toLowerCase() == dataQuery['gioi_tinh'].toLowerCase()) {
-                dataResponse = d.categories
+                dataResponse = d
             }
         })
     } else {
-        data.forEach(d => {
-            dataResponse = dataResponse.concat(d.categories)
-        })
+        let response = {
+                    text: `Bạn cần mua đồ cho nam hay nữ`,
+                    quick_replies: [
+                        {
+                            content_type: "text",
+                            title: "Nam",
+                            payload: "NAM"
+                        },
+                        {
+                            content_type: "text",
+                            title: "Nữ",
+                            payload: "NU"
+                        },
+                    ],
+                };
+        return callSendAPI(psid,response)
     }
     if (dataQuery['ten_danh_muc']) {
         let dataCate = []
-        dataResponse.forEach(cate => {
-            if (cate.name.toLowerCase().includes(dataQuery['ten_danh_muc'].toLowerCase())) {
+        let queryCateName = dataQuery['ten_danh_muc']
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/đ/g, "d")
+            .replace(/Đ/g, "D")
+            .toLowerCase()
+        if (queryCateName == 'Quần áo'.toLowerCase()) {
+            
+            console.log(dataCate);
+            return chatbotService.sendSlideMes(psid, dataResponse, false)
+        }
+        dataResponse.categories.forEach(cate => {
+            if (cate.name.toLowerCase().includes(queryCateName)) {
+
                 dataCate = dataCate.concat(cate.categories)
             }
         })
-        dataResponse = dataCate
+        dataResponse = {
+            name: dataQuery['ten_danh_muc'],
+            categories: dataCate
+        }
     }
     if (dataQuery['color']) {
         let dataColor = []
@@ -238,7 +253,14 @@ function handleAsk(entities) {
     }
     console.log(dataResponse);
     console.log(dataQuery);
-    return dataResponse[0].name
+    if (dataResponse.categories.length > 0) {
+        chatbotService.sendSlideMes(psid, dataResponse)
+        // callSendAPI(psid,{text:dataResponse.length})
+    } else {
+        let mes = `Thật buồn khi tôi không thể tìm thấy "${dataResponse.name}" cho bạn`
+        callSendAPI(psid,{text:mes})
+    }
+    // return dataResponse[0].name
 }
 
 // Handles messaging_postbacks events
@@ -247,7 +269,7 @@ async function handlePostback(sender_psid, received_postback) {
 
     // Get the payload for the postback
     let payload = received_postback.payload;
-
+    let title = received_postback.title
     // Set the response based on the postback payload
     switch (payload) {
         case 'Yes':
@@ -259,13 +281,36 @@ async function handlePostback(sender_psid, received_postback) {
         case 'GET_STARTED':
             await chatbotService.handleGetStarted(sender_psid)
             break;
+        case 'DANH_MUC_NAM':
+            getProduct(true,title,sender_psid);
+            break;
+        case 'DANH_MUC_NU':
+            getProduct(false,title,sender_psid);
+            break;
         default:
             response = { "text": `oop! I don't know ${payload}` }
     }
     // Send the message to acknowledge the postback
-    // callSendAPI(sender_psid, response);
+    callSendAPI(sender_psid, response);
 }
-
+function getProduct(gt, title,psid) {
+    let dataResponse = []
+    let sex
+    if (gt) {
+        sex = 'nam'
+    } else {
+        sex = 'nữ'
+    }
+    data.forEach(cate => {
+        if(cate.name.toLowerCase() == sex)
+            cate.categories.forEach(cate => {
+                if (cate.name == title){
+                    dataResponse = cate
+                }
+            })
+    })
+    chatbotService.sendSlideMes(psid,dataResponse)
+}
 
 function callSendAPI(sender_psid, response) {
     // Construct the message body
