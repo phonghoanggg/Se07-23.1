@@ -34,8 +34,8 @@ let getNameUser =  (sender_psid) => {
                     if (!err) {
                         body = JSON.parse(body);
                         //tên có dạng first_name:"...", "last_name":"..."
-                        // let usename = `${body.last_name} ${body.first_name}`;
-                        let usename = `${body.first_name}`;
+                        let usename = `${body.last_name} ${body.first_name}`;
+                        // let usename = `${body.first_name}`;
                         resolve(usename);
                     } else {
                         console.error("Unable to send message:" + err);
@@ -115,7 +115,7 @@ let showProduct = (dataList,psid) => {
                 },
                 {
                     type: "web_url",
-                    url: `${process.env.DOMAIN}/${psid}`,
+                    url: `${process.env.DOMAIN_CONTACT}/${psid}/${e.id}`,
                     title: "Muốn mua",
                     webview_height_ratio: "tall",
                     messenger_extensions: true,
@@ -151,8 +151,6 @@ function callSendAPI(sender_psid, response) {
                 json: request_body,
             },
             (err, res, body) => {
-                console.log(body);
-                console.log(res);
                 if (!err) {
                     console.log("message sent!");
                     t();

@@ -59,7 +59,7 @@
 </head>
 <body>
     <div class="container">
-        <form action="" method="post">
+        <form method="post">
             <input type="text" name="psid" id="psid" hidden>
             <div class="center-text">
                 <span class="title">Thông tin khách hàng</span>
@@ -92,7 +92,7 @@ window.extAsyncInit = function() {
 };
 function handleSubmit(){
     document.querySelector('form').onsubmit = e =>{
-        e.preventDefault()
+        // e.preventDefault()
         document.querySelector('form').style.display = 'none'
         document.querySelector('.success').style.display = 'block'
     }

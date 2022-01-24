@@ -1,9 +1,12 @@
 require("dotenv").config();
-import { text } from "body-parser";
-import { response } from "express";
-import request from "request";
+import request, { get } from "request";
 import chatbotService from "../service/chatbotService";
+import moment from "moment"
+const { GoogleSpreadsheet } = require('google-spreadsheet');
 
+const PRIVATE_KEY = process.env.PRIVATE_KEY.replace(/\\n/g, "\n")
+const CLIENT_EMAIL = process.env.CLIENT_EMAIL
+const SHEET_ID = process.env.SHEET_ID
 
 const PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN;
 const VERIFY_TOKEN = process.env.VERIFY_TOKEN;
@@ -418,7 +421,7 @@ let setupProfile = async (req, res) => {
     // Construct the message body
     let request_body = {
         "get_started": { "payload": "GET_STARTED" },
-        "whitelisted_domains": ["https://da3f-2402-800-61b3-d880-380c-d5b2-1839-82e2.ngrok.io"]
+        "whitelisted_domains": [`${process.env.DOMAIN}`,]
     }
 
     // Send the HTTP request to the Messenger Platform
@@ -428,7 +431,6 @@ let setupProfile = async (req, res) => {
         "method": "POST",
         "json": request_body
     }, (err, res, body) => {
-        console.log(body)
         if (!err) {
             console.log('setup user profile succes')
         } else {
@@ -442,12 +444,67 @@ let setupProfile = async (req, res) => {
 let contact = (req, res) => {
     return res.render('contact.ejs')
 }
-let contactPost = (req, res) => {
+let contactPost = async (req, res) => {
+    console.log("aloooo");
     let psid = req.params.psid
+    let idPro = req.params.id
+    let listData = [...data[0].categories, ...data[1].categories]
+    let product = {}
+    console.log("id "+idPro);
+    listData.forEach(data => {
+        data.categories.forEach(pro => {
+            console.log(pro);
+            if (pro.id == idPro) {
+               product = pro 
+            }
+        })
+    })
     let body = req.body
     body.psid = psid
-    console.log(body);
+    body['pro'] = product 
+    body['nameFace'] = await chatbotService.getNameUser(psid)
+    console.log(body)
+    getGoogleSheet(body)
 }
+
+let getGoogleSheet = async (data) => {
+    try {
+
+        let currentDate = new Date()
+
+        const format = "HH:mm DD/MM/YYYY"
+
+        let formatedDate = moment(currentDate).format(format)
+
+        const doc = new GoogleSpreadsheet(SHEET_ID);
+
+        await doc.useServiceAccountAuth({
+            client_email: CLIENT_EMAIL,
+            private_key: PRIVATE_KEY,
+        });
+
+        await doc.loadInfo()
+
+        const sheet = doc.sheetsByIndex[0]
+
+        // append rows
+        await sheet.addRow(
+            {
+                "Tên khách hàng": data.name,
+                "Số điện thoại khách hàng": data.phone,
+                "Tên Faceboook": data.nameFace,
+                "Tên sản phẩm": data.pro.name,
+                "Giá": data.pro.amount,
+                "Thời gian": formatedDate
+            });
+
+
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
+
 module.exports = {
     getHomePage,
     postWebHook,
