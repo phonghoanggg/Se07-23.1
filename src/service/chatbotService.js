@@ -6,7 +6,7 @@ let sendSlideMes = async (sender_psid, dataList, isDetail = true) => {
     let mesList = []
     let res = {}
     if (isDetail) {
-        mesList = showProduct(dataList);
+        mesList = showProduct(dataList,sender_psid);
     } else {
         mesList = showDetail(dataList)
     }
@@ -49,7 +49,7 @@ let handleGetStarted = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let username = await getNameUser(sender_psid);
-            let response = {"text": `Hey guys, wealcome ${username} to the restaurant FFF`}
+            let response = {"text": `Chào ${username}, rất vui mừng bạn đến với chúng tôi`}
             await callSendAPI(sender_psid, response);
             resolve('done');
         } catch(e) {
@@ -89,7 +89,7 @@ let showDetail = (dataList) => {
     
     return mesList;
 }
-let showProduct = (dataList) => {
+let showProduct = (dataList,psid) => {
     let mesOnly = []
     let mesList = []
     dataList.categories.forEach((e, index) => {
@@ -114,9 +114,11 @@ let showProduct = (dataList) => {
                     title: "Xem chi tiết",
                 },
                 {
-                    type: "postback",
+                    type: "web_url",
+                    url: `${process.env.DOMAIN}/${psid}`,
                     title: "Muốn mua",
-                    payload: "DEVELOPER_DEFINED_PAYLOAD",
+                    webview_height_ratio: "tall",
+                    messenger_extensions: true,
                 },
             ],
         }
@@ -149,6 +151,8 @@ function callSendAPI(sender_psid, response) {
                 json: request_body,
             },
             (err, res, body) => {
+                console.log(body);
+                console.log(res);
                 if (!err) {
                     console.log("message sent!");
                     t();

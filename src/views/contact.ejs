@@ -1,0 +1,102 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: inherit;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+        }
+        .center-text {
+            text-align: center;
+        }
+        .center-text .title {
+            font-size: 19px;
+            font-weight: bold;
+        }
+        .form-group {
+            width: 100%;
+            display: inline-grid;
+            margin-top: 20px;
+        }
+        .form-group input {
+            outline: none;
+            border-radius: 10px;
+            padding: 10px 10px;
+            border: 1px solid #999;
+            font-size: 16px;
+        }
+        .form-group input:focus{
+            border: 2px solid rgb(18, 81, 197);
+        }
+        .btn-submit{
+            outline: none;
+            cursor: pointer;
+            background: rgb(18, 81, 197);
+            padding: 10px ;
+            color: white;
+            border: none;
+            font-size: 17px;
+            border-radius: 10px;
+        }
+        .success {
+            display: none;
+            font-size: 17px;
+            text-align: center;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="" method="post">
+            <input type="text" name="psid" id="psid" hidden>
+            <div class="center-text">
+                <span class="title">Thông tin khách hàng</span>
+            </div>
+            <div class="form-group">
+                <label for="name">Họ và tên:</label>
+                <input type="text" required autocomplete="off" name="name" id="name" placeholder="họ và tên...">
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại:</label>
+                <input type="text" required name="phone" id="phone" placeholder="số điện thoại...">
+            </div>
+            <div class="form-group">
+                <button class="btn-submit" type="submit">Xác nhận</button>
+            </div>
+        </form>
+        <span class="success">Thông tin của bạn đã được lưu lại thành công, sẽ có nhân viên liên hệ ngay với bạn hãy để ý điện thoại nhé. Cảm ơn</span>
+
+    </div>
+<script>
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/messenger.Extensions.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'Messenger'));
+window.extAsyncInit = function() {  
+    handleSubmit()
+};
+function handleSubmit(){
+    document.querySelector('form').onsubmit = e =>{
+        e.preventDefault()
+        document.querySelector('form').style.display = 'none'
+        document.querySelector('.success').style.display = 'block'
+    }
+}
+</script>
+</body>
+</html>

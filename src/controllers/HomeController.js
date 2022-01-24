@@ -182,13 +182,21 @@ async function suggestMes(psid) {
         await callSendAPI(psid, { text: mesList[index]})
     }
 }
-function handleAsk(entities,psid) {
+async function handleAsk(entities,psid) {
     console.log(Object.values(entities));
+    let dataSuggest = {}
+    let isSuggestPro = true
+    let info = ''
     let dataResponse = {}
     let dataQuery = {}
     let entitiesArr = Object.values(entities)
     entitiesArr.forEach(v => {
         if (v[0].confidence >= 0.8) {
+            v[0].entities.forEach(en=>{
+                if (en.confidence >= 0.8) {
+                    dataQuery[en.name] = en.value
+                }
+            })
             dataQuery[v[0].name] = v[0].value
         }
     })
@@ -196,8 +204,13 @@ function handleAsk(entities,psid) {
         data.forEach(d => {
             if (d.name.toLowerCase() == dataQuery['gioi_tinh'].toLowerCase()) {
                 dataResponse = d
+                dataSuggest = dataResponse
             }
         })
+        if (Object.keys(dataQuery).length == 1) {
+            chatbotService.sendSlideMes(psid, dataResponse, false)
+            return
+        }
     } else {
         let response = {
                     text: `Bạn cần mua đồ cho nam hay nữ`,
@@ -217,50 +230,77 @@ function handleAsk(entities,psid) {
         return callSendAPI(psid,response)
     }
     if (dataQuery['ten_danh_muc']) {
+        dataSuggest = {name:dataSuggest.name,categories:[...dataResponse.categories]}
         let dataCate = []
-        let queryCateName = dataQuery['ten_danh_muc']
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "")
-            .replace(/đ/g, "d")
-            .replace(/Đ/g, "D")
-            .toLowerCase()
-        if (queryCateName == 'Quần áo'.toLowerCase()) {
+        let queryCateName = convertVN(dataQuery['ten_danh_muc'])
+        if (queryCateName.includes(convertVN("quần áo"))) {
             
             console.log(dataCate);
+            await callSendAPI(psid,{text:`Sản phẩm cho ${dataQuery['gioi_tinh']} có các loại danh mục sau`})
             return chatbotService.sendSlideMes(psid, dataResponse, false)
         }
         dataResponse.categories.forEach(cate => {
-            if (cate.name.toLowerCase().includes(queryCateName)) {
-
+            console.log(convertVN(cate.name).includes(queryCateName));
+            if (convertVN(cate.name).includes(queryCateName)) {
                 dataCate = dataCate.concat(cate.categories)
+                console.log(dataCate);
             }
         })
+        console.log("data cxate"+ dataCate.length);
+        console.log(dataCate);
+        if (dataCate.length == 0) {
+            console.log("data cate length "+dataCate.length);
+            isSuggestPro = false
+            dataSuggest = { name: dataSuggest.name, categories: [...dataResponse.categories] }
+        }
         dataResponse = {
             name: dataQuery['ten_danh_muc'],
-            categories: dataCate
+            categories: [...dataCate]
         }
+        info = info + `${dataResponse.name}`
     }
     if (dataQuery['color']) {
         let dataColor = []
-        dataResponse.forEach(d => {
-            if (d.color.includes(dataQuery['color'].toLowerCase())) {
+        dataResponse.categories.forEach(d => {
+            console.log(convertVN(d.color.toString())+"  "+(convertVN(dataQuery['color'])));
+            if (convertVN(d.color.toString()).includes(convertVN(dataQuery['color']))) {
                 dataColor.push(d)
             }
         })
-        dataResponse = dataColor
-        
-
+        if (dataColor.length == 0) {
+            dataSuggest = {
+                name: dataSuggest.name,
+                categories: [...dataSuggest.categories]
+            }
+        }
+        dataResponse = {
+            name: dataResponse.name,
+            categories: dataColor
+        }
+        info = `${info} màu ${dataQuery['color']}`
     }
     console.log(dataResponse);
     console.log(dataQuery);
+    await callSendAPI(psid,{text:`bạn muốn tìm ${info} :D`})
     if (dataResponse.categories.length > 0) {
+        await callSendAPI(psid, { text: `Tôi đã tìm được ${dataResponse.categories.length} sản phẩm cho bạn 8|` })
         chatbotService.sendSlideMes(psid, dataResponse)
         // callSendAPI(psid,{text:dataResponse.length})
     } else {
-        let mes = `Thật buồn khi tôi không thể tìm thấy "${dataResponse.name}" cho bạn`
-        callSendAPI(psid,{text:mes})
+        let mes = `cửa hàng đã hết hoặc không có "${info}" :(`
+        await callSendAPI(psid, { text: mes })
+        await callSendAPI(psid, { text: `Bạn có thể tham khảo sảm phẩm khác của ${dataSuggest.name} như` })
+        await chatbotService.sendSlideMes(psid,dataSuggest,isSuggestPro)
     }
     // return dataResponse[0].name
+}
+function convertVN(string) {
+    return string
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/đ/g, "d")
+        .replace(/Đ/g, "D")
+        .toLowerCase()
 }
 
 // Handles messaging_postbacks events
@@ -302,13 +342,14 @@ function getProduct(gt, title,psid) {
         sex = 'nữ'
     }
     data.forEach(cate => {
-        if(cate.name.toLowerCase() == sex)
+        if(convertVN(cate.name) == convertVN(cate.name))
             cate.categories.forEach(cate => {
-                if (cate.name == title){
+                if (convertVN(cate.name) == convertVN(title)){
                     dataResponse = cate
                 }
             })
     })
+    console.log(dataResponse);
     chatbotService.sendSlideMes(psid,dataResponse)
 }
 
@@ -377,7 +418,7 @@ let setupProfile = async (req, res) => {
     // Construct the message body
     let request_body = {
         "get_started": { "payload": "GET_STARTED" },
-        "whitelisted_domains": ["http://localhost:8080/"]
+        "whitelisted_domains": ["https://da3f-2402-800-61b3-d880-380c-d5b2-1839-82e2.ngrok.io"]
     }
 
     // Send the HTTP request to the Messenger Platform
@@ -398,9 +439,20 @@ let setupProfile = async (req, res) => {
     return res.send("setup user profile succes");
 
 }
+let contact = (req, res) => {
+    return res.render('contact.ejs')
+}
+let contactPost = (req, res) => {
+    let psid = req.params.psid
+    let body = req.body
+    body.psid = psid
+    console.log(body);
+}
 module.exports = {
     getHomePage,
     postWebHook,
     getWebHook,
     setupProfile: setupProfile,
+    contact,
+    contactPost,
 };

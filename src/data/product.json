@@ -30,7 +30,7 @@
             {"name":"Váy", "categories": [
                 {"name": "Váy dài nữ thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
                 {"name": "Váy ngắn thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"name": "Váy lửng nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
+                {"name": "Váy lửng nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím","đỏ"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
                 {"name": "Váy xòe nữ ", "amount": 100000, "currency": "VND","color":["cam","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"}
             ]}
         ]},
@@ -56,7 +56,7 @@
                 {"name": "Quần ống xuông nam thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
                 {"name": "Quần jean nam thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
                 {"name": "Quần basic xuông nam thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"name": "Quần ống rộng nam thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"}
+                {"name": "Quần ống rộng nam thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa","đỏ"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"}
             ]}
         ]}
 ]
