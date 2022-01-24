@@ -149,7 +149,7 @@ async function handleResponse(response,psid) {
             switch (name) {
                 case 'chao_hoi':
                     let username = await chatbotService.getNameUser(psid)
-                    return `Chào ${username}, tôi có thể giúp gì cho bạn`
+                     await callSendAPI(psid,{text:`Chào ${username}, tôi có thể giúp tìm bạn tìm gì 8-)`})
                 case 'hoi':
                     
                     return handleAsk(entities,psid)
@@ -255,6 +255,8 @@ async function handleAsk(entities,psid) {
             console.log("data cate length "+dataCate.length);
             isSuggestPro = false
             dataSuggest = { name: dataSuggest.name, categories: [...dataResponse.categories] }
+        } else {
+            dataSuggest = { name: dataSuggest.name, categories: [...dataCate] }
         }
         dataResponse = {
             name: dataQuery['ten_danh_muc'],
@@ -315,11 +317,8 @@ async function handlePostback(sender_psid, received_postback) {
     let title = received_postback.title
     // Set the response based on the postback payload
     switch (payload) {
-        case 'Yes':
-            response = { "text": "Wow that beauty!" }
-            break;
-        case 'No':
-            response = { "text": "resend your picture" }
+        case 'RESTART_BOT':
+            await chatbotService.handleGetStarted(sender_psid)
             break;
         case 'GET_STARTED':
             await chatbotService.handleGetStarted(sender_psid)
@@ -421,7 +420,27 @@ let setupProfile = async (req, res) => {
     // Construct the message body
     let request_body = {
         "get_started": { "payload": "GET_STARTED" },
-        "whitelisted_domains": [`${process.env.DOMAIN}`,]
+        "whitelisted_domains": [`${process.env.DOMAIN}`,],
+        "persistent_menu": [
+            {
+                "locale": "default",
+                "composer_input_disabled": false,
+                "call_to_actions": [
+                    {
+                        "type": "postback",
+                        "title": "Khởi động lại bot",
+                        "payload": "RESTART_BOT"
+                    },
+                    {
+                        "type": "web_url",
+                        "title": "Xem cửa hàng",
+                        "url": "https://vi.house3d.com/",
+                        "webview_height_ratio": "full"
+                    }
+                ]
+            }
+        ]
+    
     }
 
     // Send the HTTP request to the Messenger Platform
@@ -445,7 +464,6 @@ let contact = (req, res) => {
     return res.render('contact.ejs')
 }
 let contactPost = async (req, res) => {
-    console.log("aloooo");
     let psid = req.params.psid
     let idPro = req.params.id
     let listData = [...data[0].categories, ...data[1].categories]
@@ -491,9 +509,11 @@ let getGoogleSheet = async (data) => {
         await sheet.addRow(
             {
                 "Tên khách hàng": data.name,
+                "Địa chỉ": data.address,
                 "Số điện thoại khách hàng": data.phone,
                 "Tên Faceboook": data.nameFace,
                 "Tên sản phẩm": data.pro.name,
+                "Size": data.size,
                 "Giá": data.pro.amount,
                 "Thời gian": formatedDate
             });

@@ -1,62 +1,62 @@
 [
-        {"name": "nữ", "categories": [
-            {"name":"Áo thun", "categories": [
-                {"id":1,"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nữ", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/efale5"},
-                {"id":2,"name": "Áo Thun Tay Ngắn Cổ Tròn", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":3,"name": "Áo Thun Tay Lỡ", "amount": 210000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/efale5"},
-                {"id":4,"name": "Áo Thun cao cổ", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":5,"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nữ", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/efale5"},
-                {"id":6,"name": "Áo Thun Tay Ngắn Cổ Tròn", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":7,"name": "Áo Thun Tay Lỡ", "amount": 210000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/efale5"},
-                {"id":8,"name": "Áo Thun cao cổ", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"}   
-            ]},
-            {"name":"Hoodie Áo nỉ", "categories": [
-                {"id":9,"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/efale5"},
-                {"id":10,"name": "Áo Hoodie Nữ Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/efale5"},
-                {"id":11,"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/efale5"}
-            ]},
-            {"name":"Áo sơ mi", "categories": [
-                {"id":12 ,"name": "Áo Sơ Mi Nữ Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":13,"name": "Áo Sơ Mi Nam Nữ Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":14,"name": "Áo Sơ Mi Nam Nữ Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":15 ,"name": "Áo Sơ Mi Nữ Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"}
-            ]},
-            {"name":"Quần dài", "categories": [
-                {"id":17 ,"name": "Quần ống xuông nữ thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":18 ,"name": "Quần jean nữ thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":19 ,"name": "Quần basic xuông nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":20 ,"name": "Quần ống rộng nữ thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"}
-            ]},
-            {"name":"Váy", "categories": [
-                {"id":21,"name": "Váy dài nữ thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":22,"name": "Váy ngắn thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":23,"name": "Váy lửng nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím","đỏ"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"},
-                {"id":24,"name": "Váy xòe nữ ", "amount": 100000, "currency": "VND","color":["cam","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/966wgz"}
-            ]}
+    {"name": "nữ", "categories": [
+        {"name":"Áo thun", "categories": [
+            {"id":1,"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nữ", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://xuongmayaothunkn.com/wp-content/uploads/2020/02/ao-thun-tay-lo-unisex-2-600x680.jpg"},
+            {"id":2,"name": "Áo Thun Tay Ngắn Cổ Tròn", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://ragus.vn/wp-content/uploads/2019/01/ao-thun-nam-tay-ngan-ke-soc-vat-bau-routine2019.jpg"},
+            {"id":3,"name": "Áo Thun Tay Lỡ", "amount": 210000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://namlongfashion.com/wp-content/uploads/2019/12/80.jpg"},
+            {"id":4,"name": "Áo Thun cao cổ", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"size":["M","XL","L","XXL","S"],"image":"https://annshop.vn/wp-content/uploads/9240-z1455173426163-d7db95f16b3693eaac25653b00e45987-7.png"},
+            {"id":5,"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nữ", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://annshop.vn/wp-content/uploads/11331-b454d0941961e13fb870-7.png"},
+            {"id":6,"name": "Áo Thun Tay Ngắn Cổ Tròn", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://babi.vn/images/watermarked/1/variant_image/55/ao-thun-gia-dinh-in-hinh-tha-tim-danh-cho-me_(4).jpg?t=1534824217"},
+            {"id":7,"name": "Áo Thun Tay Lỡ", "amount": 210000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://thoitranglami.vn/wp-content/uploads/2020/04/ao-thun-tay-lo-hinh-bong-hoa-sac-mau.png"},
+            {"id":8,"name": "Áo Thun cao cổ", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"size":["M","XL","L","XXL","S"],"image":"http://aothunmy.com/kcfinder/upload/images/ao-thun-cao-cap-Levis-tron-trang.jpg"}   
         ]},
-        {"name": "nam", "categories": [
-            {"name":"Áo thun", "categories": [
-                {"id":25,"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nam", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":26,"name": "Áo Thun Tay Ngắn Cổ Tròn Nam", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":27,"name": "Áo Thun Tay Lỡ Cho Nam", "amount": 210000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":28,"name": "Áo Thun cao cổ cho nam", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"}
-            ]},
-            {"name":"Hoodie Áo nỉ", "categories": [
-                {"id":29,"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":30,"name": "Áo Hoodie Nam Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":31,"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"}
-            ]},
-            {"name":"Áo sơ mi", "categories": [
-                {"id":32,"name": "Áo Sơ Mi Nam Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":33,"name": "Áo Sơ Mi Nam Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":34,"name": "Áo Sơ Mi Nam Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":35,"name": "Áo Sơ Mi Nam Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"}
-            ]},
-            {"name":"Quần dài", "categories": [
-                {"id":36,"name": "Quần ống xuông nam thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":37,"name": "Quần jean nam thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":38,"name": "Quần basic xuông nam thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"},
-                {"id":39,"name": "Quần ống rộng nam thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa","đỏ"],"size":["M","XL","L","XXL","S"],"image":"https://bitly.com.vn/fhi98e"}
-            ]}
+        {"name":"Hoodie Áo nỉ", "categories": [
+            {"id":9,"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"],"size":["M","XL","L","XXL","S"],"image":"http://quanvaaoshop.com/files/sanpham/166/2/jpg/ao-hoodie-cham-ss2-unisex-fox.jpg"},
+            {"id":10,"name": "Áo Hoodie Nữ Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"],"size":["M","XL","L","XXL","S"],"image":"https://golmart.vn/wp-content/uploads/2020/05/nhung-chiec-ao-xinh-xan-de-thuong-tai-gaugaushop.jpeg"},
+            {"id":11,"name": "Áo Hoodie Nam Nữ Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"],"size":["M","XL","L","XXL","S"],"image":"https://fandy.vn/wp-content/uploads/2018/01/DSC5612.jpg"}
+        ]},
+        {"name":"Áo sơ mi", "categories": [
+            {"id":12 ,"name": "Áo Sơ Mi Nữ Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://yami.vn/assets/upload/product/09-07-2020/ao-so-mi-tay-ngan-vien-mau-thoi-trang-1594286215/3.jpg"},
+            {"id":13,"name": "Áo Sơ Mi Nam Nữ Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"],"size":["M","XL","L","XXL","S"],"image":"https://aristino.com/Data/upload/images/Product/so-mi-dai-tay/ALS63808/ao-so-mi-nam-aristino-ALS63808-02.jpg"},
+            {"id":14,"name": "Áo Sơ Mi Nam Nữ Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://aristino.com/Data/upload/images/Product-outlet/so-mi-dai-tay/ALS178S7/ao-si-mi-aristino-ALS178S7.jpg"},
+            {"id":15 ,"name": "Áo Sơ Mi Nữ Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"],"size":["M","XL","L","XXL","S"],"image":"https://aristino.com/Data/upload/images/Product-outlet/so-mi-dai-tay/ALS18607/ao-so-mi-nam-aristino-ALS18607-2112.jpg"}
+        ]},
+        {"name":"Quần dài", "categories": [
+            {"id":17 ,"name": "Quần ống xuông nữ thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://cdn.kkfashion.vn/4579-large_default/quan-tay-cong-so-nu-ong-suong-qcs01-30.jpg"},
+            {"id":18 ,"name": "Quần jean nữ thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://cdn.kkfashion.vn/4579-large_default/quan-tay-cong-so-nu-ong-suong-qcs01-30.jpg"},
+            {"id":19 ,"name": "Quần basic xuông nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"size":["M","XL","L","XXL","S"],"image":"https://media.loveitopcdn.com/853/upload/products/high/quan-dui-nu-ong-xuong.htmlmMKQ.jpg"},
+            {"id":20 ,"name": "Quần ống rộng nữ thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://thcsgiaothien.edu.vn/wp-content/uploads/2022/01/quan-baggy-ong-rong_5053779b9f224eeda33c621a8994231e.jpg"}
+        ]},
+        {"name":"Váy", "categories": [
+            {"id":21,"name": "Váy dài nữ thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://lalungstore.com/wp-content/uploads/2021/06/vay-nu-1-1280-2.jpg"},
+            {"id":22,"name": "Váy ngắn thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://chiaki.vn/upload/category/2016/11/vay-nu-14112016111126.jpg"},
+            {"id":23,"name": "Váy lửng nữ thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím","đỏ"],"size":["M","XL","L","XXL","S"],"image":"https://lalungstore.com/wp-content/uploads/2021/08/vay-nu-1299-1.jpg"},
+            {"id":24,"name": "Váy xòe nữ ", "amount": 100000, "currency": "VND","color":["cam","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://lalungstore.com/wp-content/uploads/2021/06/vay-nu-co-se-lv-890-1.jpg"}
         ]}
+    ]},
+    {"name": "nam", "categories": [
+        {"name":"Áo thun", "categories": [
+            {"id":25,"name": "Áo Thun Tay Ngắn Thời Trang Dành Cho Nam", "amount": 200000, "currency": "VND","color":["đỏ","xanh"],"size":["M","XL","L","XXL","S"],"image":"http://aothunvnxk.vn/wp-content/uploads/2017/07/ao-thun-nam-xanh-thien-thanh.jpg"},
+            {"id":26,"name": "Áo Thun Tay Ngắn Cổ Tròn Nam", "amount": 180000, "currency": "VND","color":["hồng","xanh"],"size":["M","XL","L","XXL","S"],"image":"https://st.app1h.com/uploads/company72/2020/05/26/5ecce66826438.jpeg"},
+            {"id":27,"name": "Áo Thun Tay Lỡ Cho Nam", "amount": 210000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://ragus.vn/wp-content/uploads/2019/02/ao-thun-nam-vai-gan-routine.jpg"},
+            {"id":28,"name": "Áo Thun cao cổ cho nam", "amount": 220000, "currency": "VND","color":["đỏ","xanh","đen","trắng","hồng"],"size":["M","XL","L","XXL","S"],"image":"https://colo.com.vn/content/images/thumbs/0000465_ao-thun-nam-co-det-soc-xanh-da-troi.jpeg"}
+        ]},
+        {"name":"Hoodie Áo nỉ", "categories": [
+            {"id":29,"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["đen","trắng"],"size":["M","XL","L","XXL","S"],"image":"https://www.elleman.vn/wp-content/uploads/2020/08/29/183382/13_ao-hoodie_ami-hoodie-dandy-fellow_elle-man_0820.jpg"},
+            {"id":30,"name": "Áo Hoodie Nam Hoa Văn Họa Tiết", "amount": 230000, "currency": "VND","color":["nâu","vàng"],"size":["M","XL","L","XXL","S"],"image":"https://laygi.com/wp-content/uploads/2020/02/z1727807856013_afe8601e65bbe129fb8dea454348dc46.jpg"},
+            {"id":31,"name": "Áo Hoodie Nam Có Mũ Trùm Đầu", "amount": 180000, "currency": "VND","color":["cam","tím"],"size":["M","XL","L","XXL","S"],"image":"https://fandy.vn/wp-content/uploads/2017/11/2-copy.jpg"}
+        ]},
+        {"name":"Áo sơ mi", "categories": [
+            {"id":32,"name": "Áo Sơ Mi Nam Tay Ngắn", "amount": 250000, "currency": "VND","color":["trắng","đen"],"size":["M","XL","L","XXL","S"],"image":"https://product.hstatic.net/1000199383/product/ao_so_mi_nam_aristino_ass317s8_02_36c64a97fe164d7583853247d7cc001f_master.jpg"},
+            {"id":33,"name": "Áo Sơ Mi Nam Tay Dài", "amount": 150000, "currency": "VND","color":["hồng","tím"],"size":["M","XL","L","XXL","S"],"image":"https://www.elleman.vn/wp-content/uploads/2019/03/15/ao-so-mi-flannel-elle-man-7.jpg"},
+            {"id":34,"name": "Áo Sơ Mi Nam Tay Lỡ", "amount": 220000, "currency": "VND","color":["đỏ","đen"],"size":["M","XL","L","XXL","S"],"image":"https://vnn-imgs-f.vgcloud.vn/2021/02/18/10/ao-so-mi-xanh-ghi-co-mo.jpg"},
+            {"id":35,"name": "Áo Sơ Mi Nam Loang Màu", "amount": 450000, "currency": "VND","color":["trắng","nâu"],"size":["M","XL","L","XXL","S"],"image":"https://aristino.com/Data/upload/images/Product/so-mi-dai-tay/ALS09509/ao-so-mi-aristino-ALS09509-01.jpg"}
+        ]},
+        {"name":"Quần dài", "categories": [
+            {"id":36,"name": "Quần ống xuông nam thời trang", "amount": 300000, "currency": "VND","color":["trắng","sữa"],"size":["M","XL","L","XXL","S"],"image":"https://mavana.vn/wp-content/uploads/2019/04/quan-dai-kaki-nam-hcm.jpg"},
+            {"id":37,"name": "Quần jean nam thời trang", "amount": 320000, "currency": "VND","color":["đen","tràm"],"size":["M","XL","L","XXL","S"],"image":"https://cdn-images.kiotviet.vn/mywayshop/0257fdd336594c97827d3c3adeccc8f3.jpg"},
+            {"id":38,"name": "Quần basic xuông nam thời trang", "amount": 200000, "currency": "VND","color":["nâu","tím"],"size":["M","XL","L","XXL","S"],"image":"https://mavana.vn/wp-content/uploads/2019/04/quan-dai-kaki-nam-xuat-khau.jpg"},
+            {"id":39,"name": "Quần ống rộng nam thời trang", "amount": 100000, "currency": "VND","color":["cam","sữa","đỏ"],"size":["M","XL","L","XXL","S"],"image":"https://www.rough.vn/Content/Images/images/images/QR019/ANH-MAU/quan-dui-suong-nam-ong-rong-rough%20(4).jpg"}
+        ]}
+    ]}
 ]

@@ -49,8 +49,9 @@ let handleGetStarted = (sender_psid) => {
     return new Promise(async (resolve, reject) => {
         try {
             let username = await getNameUser(sender_psid);
-            let response = {"text": `Chào ${username}, rất vui mừng bạn đến với chúng tôi`}
+            let response = { "text": `Chào ${username}, rất vui mừng bạn đến với chúng tôi ;)` }
             await callSendAPI(sender_psid, response);
+            await callSendAPI(sender_psid,{text:'Bạn quan tâm đến mặt hàng nào của chúng tôi, hãy nói cho tôi biết nhé :*'})
             resolve('done');
         } catch(e) {
             reject(e);
@@ -110,7 +111,7 @@ let showProduct = (dataList,psid) => {
             buttons: [
                 {
                     type: "web_url",
-                    url: "https://petersfancybrownhats.com",
+                    url: "https://vi.house3d.com/",
                     title: "Xem chi tiết",
                 },
                 {
