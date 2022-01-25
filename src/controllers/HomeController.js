@@ -243,14 +243,10 @@ async function handleAsk(entities,psid) {
             return chatbotService.sendSlideMes(psid, dataResponse, false)
         }
         dataResponse.categories.forEach(cate => {
-            console.log(convertVN(cate.name).includes(queryCateName));
             if (convertVN(cate.name).includes(queryCateName)) {
                 dataCate = dataCate.concat(cate.categories)
-                console.log(dataCate);
             }
         })
-        console.log("data cxate"+ dataCate.length);
-        console.log(dataCate);
         if (dataCate.length == 0) {
             console.log("data cate length "+dataCate.length);
             isSuggestPro = false
@@ -277,12 +273,59 @@ async function handleAsk(entities,psid) {
                 name: dataSuggest.name,
                 categories: [...dataSuggest.categories]
             }
+        } else {
+            dataSuggest = { name: dataSuggest.name, categories: [...dataColor] }
         }
         dataResponse = {
             name: dataResponse.name,
             categories: dataColor
         }
         info = `${info} màu ${dataQuery['color']}`
+    }
+    if (dataQuery['gia_tien']) {
+        let dataAmount = []
+        let i
+        if (dataQuery['loai_gia']) {
+            if (convertVN(dataQuery['loai_gia']) == 'tren') {
+                i = true
+            } else {
+                i = false                
+            }
+        } else {
+            i = false
+        }
+        let gt = dataQuery['gia_tien']
+        let t = dataQuery['gia_tien'].replace(/\D/g, '');
+        if (convertVN(gt[gt.length - 1]) == 'k' || gt.length <= 3) {
+            t = t * 1000
+            dataResponse.categories.forEach(e => {
+                if (i) {
+                    if (e.amount >= t) {
+                        dataAmount.push(e)
+                    }
+                } else
+                    if (e.amount <= t) {
+                        dataAmount.push(e)
+                    }
+            })
+        } else {
+            dataResponse.categories.forEach(e => {
+                if (i) {
+                    if (e.amount >= t) {
+                        dataAmount.push(e)
+                    }
+                } else
+                    if (e.amount <= t) {
+                        dataAmount.push(e)
+                    }
+            })
+        }
+        dataResponse = {
+            name: dataResponse.name,
+            categories: dataAmount
+        }
+        info = `${info} ${dataQuery['loai_gia']} ${gt}`
+        console.log(dataQuery['gia_tien']);
     }
     console.log(dataResponse);
     console.log(dataQuery);
